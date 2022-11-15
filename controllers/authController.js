@@ -59,7 +59,7 @@ exports.sign_up_post = [
         .withMessage('Last name must be max 20 characters long.'),
     body(
         'password_confirm',
-        'Password confirm must have the same vlaue as the password field.'
+        'Password confirm must have the same value as the password field.'
     )
         .exists()
         .custom((value, { req }) => value === req.body.password),
