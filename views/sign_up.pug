@@ -1,0 +1,21 @@
+extends layout 
+
+block content 
+    form(action="" method="POST")
+        label(for="first_name") First Name: 
+        input(type="text" id="first_name" name="first_name" value=(user === undefined? '' : user.first_name))
+        label(for="last_name") Last Name: 
+        input(type="text" id="last_name" name="last_name" value=(user === undefined? '' : user.last_name))
+        label(for="user_name") Username: 
+        input(type="text" id="user_name" name="user_name" value=(user === undefined? '' : user.user_name))
+        label(for="password") Password:
+        input(type="password" id="password" name="password") 
+        label(for="password_confirm") Confirm Password:
+        input(type="password" id="password_confirm" name="password_confirm")   
+        button Submit
+    
+    if errors
+      ul
+        for error in errors
+            li!= error.msg
+        
