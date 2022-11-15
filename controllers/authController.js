@@ -21,7 +21,11 @@ exports.log_in_post = passport.authenticate('local', {
 });
 
 exports.sign_up_get = (req, res, next) => {
-    res.render('sign_up', { title: 'Sign Up' });
+    if (!req.user) {
+        res.render('sign_up', { title: 'Sign Up' });
+    } else {
+        res.redirect('/');
+    }
 };
 
 exports.sign_up_post = [
