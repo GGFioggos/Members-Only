@@ -92,9 +92,14 @@ exports.sign_up_post = [
 ];
 
 exports.member_get = (req, res) => {
-    res.render('member', {
-        title: 'Become a member',
-    });
+    if (req.user) {
+        res.render('member', {
+            title: 'Become a member',
+            user: req.user,
+        });
+    } else {
+        res.redirect('/log-in');
+    }
 };
 
 exports.member_post = [
