@@ -5,9 +5,7 @@ block content
     div.prompt
       h1 Welcome back #{user.username}
       if !user.ismember
-        p Please become a member to create messages
-        a(href="/member") 
-          button Become member
+        p Please become a member to create messages.
       else 
         div.prompt
           p Congratulations! You are a member. 
