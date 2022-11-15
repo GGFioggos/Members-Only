@@ -1,0 +1,11 @@
+extends layout
+
+block content
+    h1 Create a message #{user.username}
+
+    form(action="" method="POST")
+        label(for="title") Title:
+        input(type="text" id="title" name="title" placeholder="Message title")
+        label(for="message") Message:
+        input(type="text" id="message" name="message" placeholder="Message text")
+        button Create message

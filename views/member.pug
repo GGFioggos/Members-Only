@@ -1,0 +1,9 @@
+extends layout 
+
+block content
+    form(action="" method='POST')
+        label(for="code") Club code: 
+        input(type="text" placeholder="Code" id="code" name="code")
+        button Submit
+    if error 
+        p #{error}

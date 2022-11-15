@@ -17,6 +17,14 @@ block content
   else 
     h1= title
     p Welcome to #{title}
-    a(href="/log-in") Log in
-    p or
+    a(href="/log-in") Log in 
+    | or 
     a(href="/sign-up") Sign up  
+  
+  if messages
+    each message in messages 
+      ul
+        h3= message.title
+        p= message.text
+        p= message.author.username
+        p= message.timestamp_formatted
