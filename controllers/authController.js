@@ -3,6 +3,8 @@ const bcrypt = require('bcryptjs');
 const User = require('../models/User');
 const { body, validationResult } = require('express-validator');
 
+require('dotenv').config();
+
 exports.log_in_get = (req, res, next) => {
     if (!req.user) {
         res.render('log_in', {
@@ -86,5 +88,46 @@ exports.sign_up_post = [
                 res.redirect('/');
             });
         });
+    },
+];
+
+exports.member_get = (req, res) => {
+    res.render('member', {
+        title: 'Become a member',
+    });
+};
+
+exports.member_post = [
+    body('code').trim().escape(),
+    (req, res, next) => {
+        const errors = validationResult(req);
+
+        if (!errors.isEmpty()) {
+            res.render('member', {
+                title: 'Become a member',
+                errors: errors.array(),
+            });
+            return;
+        }
+
+        if (req.body.code === process.env.CLUB_PASS) {
+            User.findByIdAndUpdate(
+                req.user._id,
+                {
+                    ismember: true,
+                },
+                (err) => {
+                    if (err) {
+                        return next(err);
+                    }
+                    res.redirect('/');
+                }
+            );
+        } else {
+            res.render('member', {
+                title: 'Become a member',
+                error: 'Wrong password',
+            });
+        }
     },
 ];
