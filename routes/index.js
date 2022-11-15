@@ -1,6 +1,8 @@
 var express = require('express');
 var router = express.Router();
 
+const app = express();
+
 const authController = require('../controllers/authController');
 
 /* GET home page. */
@@ -24,5 +26,9 @@ router.post('/log-in', authController.log_in_post);
 router.get('/sign-up', authController.sign_up_get);
 
 router.post('/sign-up', authController.sign_up_post);
+
+router.get('/member', authController.member_get);
+
+router.post('/member', authController.member_post);
 
 module.exports = router;
