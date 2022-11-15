@@ -1,17 +1,28 @@
 var express = require('express');
 var router = express.Router();
 
-const signUpController = require('../controllers/signUpController');
+const authController = require('../controllers/authController');
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
-    res.render('index', { title: 'Express' });
+    res.render('index', { title: 'Homepage', user: req.user });
 });
 
-router.get('/sign-up', function (req, res, next) {
-    res.render('sign_up', { title: 'Sign Up' });
+router.get('/log-out', (req, res, next) => {
+    req.logout(function (err) {
+        if (err) {
+            return next(err);
+        }
+        res.redirect('/');
+    });
 });
 
-router.post('/sign-up', signUpController.sign_up);
+router.get('/log-in', authController.log_in_get);
+
+router.post('/log-in', authController.log_in_post);
+
+router.get('/sign-up', authController.sign_up_get);
+
+router.post('/sign-up', authController.sign_up_post);
 
 module.exports = router;
