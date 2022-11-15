@@ -3,9 +3,22 @@ var router = express.Router();
 
 const authController = require('../controllers/authController');
 const messageController = require('../controllers/messageController');
+const Message = require('../models/Message');
 /* GET home page. */
+
 router.get('/', function (req, res, next) {
-    res.render('index', { title: 'Homepage', user: req.user });
+    Message.find({})
+        .populate('author')
+        .exec(function (err, messages) {
+            if (err) {
+                return next(err);
+            }
+            res.render('index', {
+                title: 'Homepage',
+                user: req.user,
+                messages,
+            });
+        });
 });
 
 router.get('/log-out', (req, res, next) => {
