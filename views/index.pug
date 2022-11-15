@@ -3,7 +3,16 @@ extends layout
 block content
   if user
     h1 Welcome back #{user.username}
-    a(href="/log-out") Log out
+    if !user.ismember
+      p Please become a member to create messages
+      a(href="/member") 
+        button Become member
+    else 
+      p Congratulations! You are a member. 
+      | Send a 
+      a(href="/message") Message
+    a(href="/log-out")
+      p Log out
 
   else 
     h1= title

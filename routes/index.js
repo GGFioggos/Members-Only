@@ -1,10 +1,8 @@
 var express = require('express');
 var router = express.Router();
 
-const app = express();
-
 const authController = require('../controllers/authController');
-
+const messageController = require('../controllers/messageController');
 /* GET home page. */
 router.get('/', function (req, res, next) {
     res.render('index', { title: 'Homepage', user: req.user });
@@ -30,5 +28,9 @@ router.post('/sign-up', authController.sign_up_post);
 router.get('/member', authController.member_get);
 
 router.post('/member', authController.member_post);
+
+router.get('/message', messageController.message_create_get);
+
+router.post('/message', messageController.message_create_post);
 
 module.exports = router;
