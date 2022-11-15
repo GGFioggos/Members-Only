@@ -10,7 +10,7 @@ const messageSchema = new Schema({
         required: true,
     },
     title: { type: String, required: true, maxLength: 20 },
-    text: { type: String, required: true, maxLength: 100 },
+    text: { type: String, required: true, maxLength: 150 },
     timestamp: { type: Date, required: true },
 });
 
