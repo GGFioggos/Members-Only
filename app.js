@@ -2,12 +2,14 @@ var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
 var passport = require('passport');
+const session = require('express-session');
 var LocalStrategy = require('passport-local').Strategy;
 const bcrypt = require('bcryptjs');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var mongoose = require('mongoose');
 var mongodb = require('mongodb');
+const User = require('./models/User');
 
 require('dotenv').config();
 
@@ -32,10 +34,18 @@ passport.use(
             if (!user) {
                 return done(null, false);
             }
-            if (!user.verifyPassword(password)) {
-                return done(null, false);
-            }
-            return done(null, user);
+            bcrypt.compare(password, user.password, (err, res) => {
+                if (err) {
+                    return next(err);
+                }
+                if (res) {
+                    // passwords match! log user in
+                    return done(null, user);
+                } else {
+                    // passwords do not match!
+                    return done(null, false, { message: 'Incorrect password' });
+                }
+            });
         });
     })
 );
@@ -54,18 +64,13 @@ passport.deserializeUser(function (id, done) {
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
+app.use(session({ secret: 'cats', resave: false, saveUninitialized: true }));
 app.use(passport.initialize());
+app.use(passport.session());
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(
-    require('express-session')({
-        secret: 'keyboard cat',
-        resave: true,
-        saveUninitialized: true,
-    })
-);
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
