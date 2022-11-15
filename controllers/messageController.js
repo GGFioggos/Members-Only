@@ -18,13 +18,13 @@ exports.message_create_post = [
         .escape()
         .notEmpty()
         .isLength({ max: 20 })
-        .withMessage('Message title must not exceel 20 characters'),
+        .withMessage('Message title must not exceed 20 characters'),
     body('message', 'Message text is mandatory')
         .trim()
         .escape()
         .notEmpty()
-        .isLength({ max: 100 })
-        .withMessage('Message text must not exceed 100 characters'),
+        .isLength({ max: 150 })
+        .withMessage('Message text must not exceed 150 characters'),
     (req, res, next) => {
         const errors = validationResult(req);
 
