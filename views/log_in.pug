@@ -1,0 +1,13 @@
+extends layout
+
+block content 
+    form(action="" method="POST") 
+        label(for="user_name") Username:
+        input(type="text" placeholder="Username" name="username" id="user_name")
+        label(for="password") Password:
+        input(type="password" placeholder="Password" name="password" id="password")
+        button Log in
+    if errors
+        ul
+            each error in errors
+                li!= error.msg
