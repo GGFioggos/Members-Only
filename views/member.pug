@@ -1,9 +1,13 @@
 extends layout 
 
 block content
-    form(action="" method='POST')
-        label(for="code") Club code: 
-        input(type="text" placeholder="Code" id="code" name="code")
-        button Submit
-    if error 
-        p #{error}
+    if !user.ismember
+        form(action="" method='POST')
+            label(for="code") Club code: 
+            input(type="text" placeholder="Code" id="code" name="code")
+            button Submit
+                if error
+                div.error
+                    p #{error}
+    else
+        h2.prompt You are already a member.

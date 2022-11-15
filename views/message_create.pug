@@ -1,7 +1,8 @@
 extends layout
 
 block content
-    h1 Create a message #{user.username}
+    div.prompt
+        h1 Create a message
 
     form(action="" method="POST")
         label(for="title") Title:
@@ -9,3 +10,7 @@ block content
         label(for="message") Message:
         input(type="text" id="message" name="message" placeholder="Message text")
         button Create message
+        if errors
+            ul.errors
+                each error in errors
+                    li!= error.msg

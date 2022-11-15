@@ -4,4 +4,25 @@ html
     title= title
     link(rel='stylesheet', href='/stylesheets/style.css')
   body
+  
+    div.header
+      a(href="/" class="appname") Members Only
+      if !user
+        ul
+          li
+            a(href="/log-in") Log in
+          li 
+            a(href="/sign-up") Sign up  
+      else
+        ul
+          li 
+            a(href="/message") Create message 
+          li 
+            a(href="/member") Become a member
+          li 
+            a(href="/admin") Admin
+          li
+            a(href="/log-out") Log out
+      block actions
+    
     block content

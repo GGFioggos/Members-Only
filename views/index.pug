@@ -1,30 +1,42 @@
-extends layout
+extends layout 
 
 block content
   if user
-    h1 Welcome back #{user.username}
-    if !user.ismember
-      p Please become a member to create messages
-      a(href="/member") 
-        button Become member
-    else 
-      p Congratulations! You are a member. 
-      | Send a 
-      a(href="/message") Message
-    a(href="/log-out")
-      p Log out
+    div.prompt
+      h1 Welcome back #{user.username}
+      if !user.ismember
+        p Please become a member to create messages
+        a(href="/member") 
+          button Become member
+      else 
+        div.prompt
+          p Congratulations! You are a member. 
 
-  else 
-    h1= title
-    p Welcome to #{title}
-    a(href="/log-in") Log in 
-    | or 
-    a(href="/sign-up") Sign up  
+
+  else
+    div.prompt
+      h2.title Welcome!
+      a(href="/log-in") Log in 
+      | or 
+      a(href="/sign-up") Sign up
+      |  to get started
   
   if messages
-    each message in messages 
-      ul
-        h3= message.title
-        p= message.text
-        p= message.author.username
-        p= message.timestamp_formatted
+    div.messages
+      each message in messages
+        div.message
+          ul
+            div.msg-title= message.title
+            div.msg-text= message.text
+            if user
+              if user.ismember
+                div.msg-author= message.author.username
+                div.msg-time= message.timestamp_formatted
+              else
+                div.loginprompt
+                  a(href="/member") Become a member
+                  |  to see author's Name and date
+            else
+              div.loginprompt
+                a(href="/log-in") Log in
+                |  to see author's Name and date 

@@ -7,7 +7,7 @@ block content
         label(for="password") Password:
         input(type="password" placeholder="Password" name="password" id="password")
         button Log in
-    if errors
-        ul
-            each error in errors
-                li!= error.msg
+        if errors
+            ul
+                each error in errors
+                    li!= error.msg
