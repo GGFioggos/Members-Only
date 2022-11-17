@@ -46,4 +46,8 @@ router.get('/message', messageController.message_create_get);
 
 router.post('/message', messageController.message_create_post);
 
+router.get('/admin', authController.admin_get);
+
+router.post('/admin', authController.admin_post);
+
 module.exports = router;

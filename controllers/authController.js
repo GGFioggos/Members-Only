@@ -140,3 +140,48 @@ exports.member_post = [
         }
     },
 ];
+
+exports.admin_get = (req, res, next) => {
+    res.render('admin.pug', {
+        title: 'Become an admin',
+        user: req.user,
+    });
+};
+
+exports.admin_post = [
+    body('admincode').trim().escape(),
+    (req, res, next) => {
+        const errors = validationResult(req);
+
+        if (!errors.isEmpty()) {
+            res.render('admin', {
+                title: 'Become an admin',
+                user: req.user,
+            });
+            return;
+        }
+
+        if (req.body.admincode === process.env.ADMIN_PASS) {
+            User.findByIdAndUpdate(
+                req.user._id,
+                {
+                    isadmin: true,
+                    ismember: true,
+                },
+                (err) => {
+                    if (err) {
+                        return next(err);
+                    }
+
+                    res.redirect('/');
+                }
+            );
+        } else {
+            res.render('admin', {
+                title: 'Become an admin',
+                user: req.user,
+                error: 'Wrong password',
+            });
+        }
+    },
+];

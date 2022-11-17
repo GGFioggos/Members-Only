@@ -1,0 +1,14 @@
+extends layout 
+
+block content
+    if !user.isadmin
+        form(action="" method='POST')
+            label(for="admincode") Admin code: 
+            input(type="text" placeholder="Code" id="admincode" name="admincode")
+            button Submit
+            if error
+                ul
+                    li  
+                        p.error #{error}
+    else
+        h2.prompt You are already an Admin.
