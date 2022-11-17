@@ -136,6 +136,7 @@ exports.member_post = [
             res.render('member', {
                 title: 'Become a member',
                 error: 'Wrong password',
+                user: req.user,
             });
         }
     },

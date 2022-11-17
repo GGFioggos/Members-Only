@@ -6,8 +6,9 @@ block content
             label(for="code") Club code: 
             input(type="text" placeholder="Code (Code = TOP)" id="code" name="code")
             button Submit
-                if error
-                div.error
-                    p #{error}
+            if error
+                ul
+                    li
+                        p.error #{error}
     else
         h2.prompt You are already a member.
