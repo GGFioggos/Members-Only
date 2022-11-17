@@ -143,10 +143,14 @@ exports.member_post = [
 ];
 
 exports.admin_get = (req, res, next) => {
-    res.render('admin.pug', {
-        title: 'Become an admin',
-        user: req.user,
-    });
+    if (req.user) {
+        res.render('admin.pug', {
+            title: 'Become an admin',
+            user: req.user,
+        });
+    } else {
+        res.redirect('/');
+    }
 };
 
 exports.admin_post = [
