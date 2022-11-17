@@ -10,6 +10,7 @@ var logger = require('morgan');
 var mongoose = require('mongoose');
 var mongodb = require('mongodb');
 const User = require('./models/User');
+const helmet = require('helmet');
 
 require('dotenv').config();
 
@@ -64,6 +65,7 @@ passport.deserializeUser(function (id, done) {
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
+app.use(helmet());
 app.use(session({ secret: 'cats', resave: false, saveUninitialized: true }));
 app.use(passport.initialize());
 app.use(passport.session());
