@@ -50,3 +50,16 @@ exports.message_create_post = [
         });
     },
 ];
+
+exports.message_delete_post = (req, res) => {
+    if (req.user.isadmin) {
+        Message.findByIdAndRemove(req.params.id, (err) => {
+            if (err) {
+                return next(err);
+            }
+            res.redirect('/');
+        });
+    } else {
+        throw new Error('You must be an admin to make that action');
+    }
+};

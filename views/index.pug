@@ -34,6 +34,9 @@ block content
                 div.loginprompt
                   a(href="/member") Become a member
                   |  to see author's Name and date
+              if user.isadmin
+                form(action=`message/${message._id}/delete` method="POST") 
+                  button.delete Delete
             else
               div.loginprompt
                 a(href="/log-in") Log in
